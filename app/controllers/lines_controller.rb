@@ -9,10 +9,11 @@ class LinesController < ApplicationController
   end
 
   def create
-    @line = Line.new(params[:line])
+    @line = Line.new(user_params)
     if @line.save
+      @line.station_ids = params[:station_ids]
       flash[:notice] = "Line created."
-      redirect_to lines_path
+      redirect_to line_path(@line)
     else
       render 'new'
     end
@@ -31,7 +32,8 @@ class LinesController < ApplicationController
 
   def update
     @line = Line.friendly.find(params[:id])
-    if @line.update(params[:id])
+    if @line.update(user_params)
+      @line.station_ids = params[:station_ids]
       flash[:notice] = "Line updated"
       redirect_to line_path(@line)
     else
@@ -44,5 +46,10 @@ class LinesController < ApplicationController
     @line.destroy
     flash[:notice] = "Line deleted"
     redirect_to lines_path
+  end
+
+  private
+  def user_params
+    params.require(:line).permit(:name)
   end
 end

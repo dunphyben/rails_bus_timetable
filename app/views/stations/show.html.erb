@@ -1,0 +1,19 @@
+<h1><%= @station.name %></h1>
+
+<h3>This stations services the following lines:</h3>
+
+<ul>
+  <% if @station.lines != nil %>
+    <% @station.lines.each do |line| %>
+      <li><%= link_to line.name, line_path(line) %></li>
+    <% end %>
+  <% end %>
+</ul>
+
+
+<hr>
+
+<%= link_to 'Edit', edit_station_path(@station), :class => 'btn btn-danger' %>
+
+
+

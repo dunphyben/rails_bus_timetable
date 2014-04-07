@@ -1,2 +1,11 @@
 <h1><%= @line.name %></h1>
 
+<h3>This line makes the following stops:</h3>
+
+<ul>
+  <% @line.stations.each do |station| %>
+    <li><%= link_to station.name, station_path(station) %></li>
+  <% end %>
+</ul>
+
+<%= link_to 'Edit', edit_line_path(@line), :class => 'btn btn-danger' %>

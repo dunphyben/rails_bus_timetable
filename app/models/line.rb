@@ -1,6 +1,6 @@
 class Line < ActiveRecord::Base
 
-  has_many :stations, through: :stops
+  has_and_belongs_to_many :stations
   validates_presence_of :name
   validates_format_of :name, :with => /\A[a-z0-9\s]+\z/i
   extend FriendlyId
