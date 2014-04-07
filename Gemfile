@@ -7,7 +7,7 @@ gem 'uglifier'
 gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'turbolinks'
-gem 'boostrap-sass'
+gem 'bootstrap-sass'
 gem 'textacular'
 gem 'friendly_id'
 

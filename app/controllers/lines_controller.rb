@@ -1,45 +1,48 @@
-class StationsController < ApplicationController
+class LinesController < ApplicationController
 
   def index
-    @stations = Station.all
+    @lines = Line.all
   end
 
   def new
-    @station = Station.new
+    @line = Line.new
   end
 
   def create
-    @station = Station.new(params[:station])
-    if @station.save
-      flash[:notice] = "Station created."
-      redirect_to stations_path
+    @line = Line.new(params[:line])
+    if @line.save
+      flash[:notice] = "Line created."
+      redirect_to lines_path
     else
       render 'new'
     end
   end
 
   def show
-    @station = Station.find(params[:id])
+    @line = Line.friendly.find(params[:id])
+    if request.path != line_path(@line)
+      redirect_to @line, status: :moved_permanently
+    end
   end
 
   def edit
-    @station = Station.find(params[:id])
+    @line = Line.friendly.find(params[:id])
   end
 
   def update
-    @station = Station.find(params[:id])
-    if @station.update(params[:id])
-      flash[:notice] = "Station updated"
-      redirect_to station_path(@station)
+    @line = Line.friendly.find(params[:id])
+    if @line.update(params[:id])
+      flash[:notice] = "Line updated"
+      redirect_to line_path(@line)
     else
       render 'edit'
     end
   end
 
   def destroy
-    @station = Station.find(params[:id])
-    @station.destroy
-    flash[:notice] = "Station deleted"
-    redirect_to stations_path
+    @line = Line.friendly.find(params[:id])
+    @line.destroy
+    flash[:notice] = "Line deleted"
+    redirect_to lines_path
   end
 end

@@ -19,11 +19,14 @@ class StationsController < ApplicationController
   end
 
   def show
-    @station = Station.find(params[:id])
+    @station = Station.friendly.find(params[:id])
+    if request.path != station_path(@station)
+      redirect_to @station, status: :moved_permanently
+    end
   end
 
   def update
-    @station = Station.find(params[:id])
+    @station = Station.friendly.find(params[:id])
     if @station.update(params[:station])
       flash[:notice] = "Station updated."
       redirect_to stations_path(@station)
@@ -33,7 +36,7 @@ class StationsController < ApplicationController
   end
 
   def destroy
-    @station = Station.find(params[:id])
+    @station = Station.friendly.find(params[:id])
     @station.destroy
     flash[:notice] = "Station deleted."
     redirect_to stations_path
